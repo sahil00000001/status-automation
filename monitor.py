@@ -81,7 +81,7 @@ def get_formatted_times():
     return ist_formatted, uk_formatted
 
 def create_email_body():
-    """Create professional HTML email body"""
+    """Create professional HTML email body with larger text and inline screenshot"""
     ist_time, uk_time = get_formatted_times()
     
     html_body = f"""
@@ -90,74 +90,191 @@ def create_email_body():
             <style>
                 body {{
                     font-family: 'Arial', sans-serif;
-                    line-height: 1.6;
-                    color: #333;
+                    line-height: 1.8;
+                    color: #2c3e50;
+                    font-size: 16px;
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f5f5f5;
                 }}
                 .container {{
-                    max-width: 600px;
+                    max-width: 800px;
                     margin: 0 auto;
-                    padding: 20px;
+                    padding: 30px;
+                    background-color: #ffffff;
                 }}
                 .header {{
-                    background-color: #f8f9fa;
-                    padding: 20px;
-                    border-radius: 5px;
-                    margin-bottom: 20px;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    padding: 30px;
+                    border-radius: 10px;
+                    margin-bottom: 30px;
+                    text-align: center;
+                    color: white;
+                }}
+                .header h1 {{
+                    margin: 0;
+                    font-size: 32px;
+                    font-weight: bold;
+                }}
+                .header p {{
+                    margin: 10px 0 0 0;
+                    font-size: 18px;
+                    opacity: 0.9;
                 }}
                 .content {{
                     padding: 20px;
+                    font-size: 16px;
                 }}
-                .footer {{
-                    margin-top: 30px;
-                    padding-top: 20px;
-                    border-top: 1px solid #e0e0e0;
-                    font-size: 12px;
-                    color: #666;
+                .content p {{
+                    margin: 15px 0;
+                    font-size: 16px;
+                    line-height: 1.8;
+                }}
+                .details-box {{
+                    background-color: #f8f9fa;
+                    border: 2px solid #e9ecef;
+                    border-radius: 8px;
+                    padding: 20px;
+                    margin: 25px 0;
+                }}
+                .details-box h3 {{
+                    margin: 0 0 15px 0;
+                    color: #495057;
+                    font-size: 20px;
+                }}
+                .details-box ul {{
+                    margin: 0;
+                    padding-left: 20px;
+                }}
+                .details-box li {{
+                    margin: 10px 0;
+                    font-size: 16px;
+                    color: #495057;
                 }}
                 .timestamp {{
-                    color: #0066cc;
+                    color: #667eea;
                     font-weight: bold;
+                    font-size: 18px;
+                }}
+                .status-badge {{
+                    display: inline-block;
+                    background-color: #28a745;
+                    color: white;
+                    padding: 5px 15px;
+                    border-radius: 20px;
+                    font-weight: bold;
+                    font-size: 14px;
+                }}
+                .screenshot-section {{
+                    background-color: #f8f9fa;
+                    border-radius: 10px;
+                    padding: 30px;
+                    margin: 30px 0;
+                    text-align: center;
+                }}
+                .screenshot-title {{
+                    font-size: 22px;
+                    font-weight: bold;
+                    color: #495057;
+                    margin-bottom: 20px;
+                }}
+                .screenshot-container {{
+                    border: 3px solid #dee2e6;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                    background-color: white;
+                    padding: 10px;
+                }}
+                .screenshot-img {{
+                    max-width: 100%;
+                    height: auto;
+                    display: block;
                 }}
                 .notice {{
                     background-color: #e3f2fd;
-                    padding: 10px;
-                    border-left: 4px solid #0066cc;
-                    margin: 15px 0;
+                    border-left: 5px solid #2196F3;
+                    padding: 15px 20px;
+                    margin: 25px 0;
+                    border-radius: 5px;
+                }}
+                .notice p {{
+                    margin: 0;
+                    font-size: 15px;
+                    color: #1565C0;
+                }}
+                .footer {{
+                    margin-top: 40px;
+                    padding-top: 30px;
+                    border-top: 2px solid #e0e0e0;
+                    text-align: center;
+                    color: #666;
+                }}
+                .footer p {{
+                    margin: 5px 0;
+                    font-size: 14px;
+                }}
+                .button {{
+                    display: inline-block;
+                    background-color: #667eea;
+                    color: white;
+                    padding: 12px 30px;
+                    text-decoration: none;
+                    border-radius: 5px;
+                    font-weight: bold;
+                    margin: 20px 0;
+                }}
+                .button:hover {{
+                    background-color: #5a67d8;
                 }}
             </style>
         </head>
         <body>
             <div class="container">
                 <div class="header">
-                    <h2 style="margin: 0; color: #2c3e50;">Yondrone Status Monitor</h2>
-                    <p style="margin: 5px 0 0 0; color: #7f8c8d;">Automated Status Report</p>
+                    <h1>Yondrone Status Monitor</h1>
+                    <p>Automated Status Report</p>
                 </div>
                 
                 <div class="content">
-                    <p>Dear Team,</p>
+                    <p style="font-size: 18px;"><strong>Dear Team,</strong></p>
                     
                     <p>The automated monitoring system has successfully captured the current status of the Yondrone platform.</p>
                     
-                    <p><strong>Capture Details:</strong></p>
-                    <ul>
-                        <li>URL Monitored: <a href="{TARGET_URL}">{TARGET_URL}</a></li>
-                        <li>Timestamp: <span class="timestamp">{ist_time} ({uk_time})</span></li>
-                        <li>Status: Successfully captured</li>
-                    </ul>
-                    
-                    <div class="notice">
-                        <strong>Note:</strong> This is an authorized automated monitoring email from the IT monitoring system. 
+                    <div class="details-box">
+                        <h3>📊 Capture Details</h3>
+                        <ul>
+                            <li><strong>URL Monitored:</strong> <a href="{TARGET_URL}" style="color: #667eea; font-size: 16px;">{TARGET_URL}</a></li>
+                            <li><strong>Timestamp:</strong> <span class="timestamp">{ist_time} ({uk_time})</span></li>
+                            <li><strong>Status:</strong> <span class="status-badge">✓ Successfully Captured</span></li>
+                        </ul>
                     </div>
                     
-                    <p>Please find the full-page screenshot attached to this email for your review.</p>
+                    <div class="screenshot-section">
+                        <div class="screenshot-title">📸 Current Status Screenshot</div>
+                        <div class="screenshot-container">
+                            <img src="cid:screenshot" alt="Yondrone Status Screenshot" class="screenshot-img" />
+                        </div>
+                        <p style="margin-top: 15px; color: #666; font-size: 14px;">
+                            <em>Screenshot captured at {ist_time}</em>
+                        </p>
+                    </div>
                     
-                    <p>This is an automated report generated every 2 hours to ensure continuous monitoring of the Yondrone status page.</p>
+                    <div class="notice">
+                        <p><strong>🔔 Important:</strong> This is an authorized automated monitoring email. Please add this sender to your safe senders list to ensure future reports reach your inbox.</p>
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 30px;">
+                        <a href="{TARGET_URL}" class="button">Visit Yondrone Status Page</a>
+                    </p>
+                    
+                    <p>This automated report is generated every 2 hours to ensure continuous monitoring of the Yondrone platform's availability and status.</p>
                 </div>
                 
                 <div class="footer">
-                    <p><strong>Yondrone Status Monitoring System v1.0</strong><br>
-                    This is an automated message. For any queries or issues, please contact the technical team.<br>
-                    <small>If this email was incorrectly marked as spam, please mark it as "Not Spam" to ensure future deliveries.</small></p>
+                    <p><strong>Yondrone Status Monitoring System v1.0</strong></p>
+                    <p>This is an automated message generated every 2 hours.</p>
+                    <p style="font-size: 12px; color: #999;">For any queries or issues, please contact the technical team.</p>
                 </div>
             </div>
         </body>
@@ -175,7 +292,7 @@ def send_email(screenshot_path):
         subject = f"[Monitoring Report] Yondrone Platform Status - {ist_time} ({uk_time})"
         
         # Create message with proper headers
-        msg = MIMEMultipart('mixed')  # Changed from 'related' to 'mixed'
+        msg = MIMEMultipart('related')  # Changed back to 'related' for inline images
         
         # Essential headers to avoid spam filters
         msg['From'] = f"Yondrone Monitor <{SENDER_EMAIL}>"
@@ -190,7 +307,7 @@ def send_email(screenshot_path):
         msg['Importance'] = 'Normal'
         msg['X-MSMail-Priority'] = 'Normal'
         
-        # Add both plain text and HTML versions
+        # Create alternative part for plain text and HTML
         msg_alternative = MIMEMultipart('alternative')
         
         # Plain text version (important for spam filters)
@@ -228,13 +345,14 @@ If this email was incorrectly marked as spam, please mark it as "Not Spam" to en
         # Attach the alternative part
         msg.attach(msg_alternative)
         
-        # Attach screenshot with proper headers
+        # Attach screenshot with Content-ID for inline display
         if screenshot_path and os.path.exists(screenshot_path):
             with open(screenshot_path, 'rb') as f:
                 img = MIMEImage(f.read())
-                img.add_header('Content-Disposition', 'attachment', 
-                             filename=f'yondrone_status_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png')
+                # Important: Set Content-ID for inline display
                 img.add_header('Content-ID', '<screenshot>')
+                img.add_header('Content-Disposition', 'inline', 
+                             filename=f'yondrone_status_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png')
                 msg.attach(img)
         
         # Send email with explicit encoding
