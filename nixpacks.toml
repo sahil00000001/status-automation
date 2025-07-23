@@ -1,0 +1,8 @@
+[phases.setup]
+nixPkgs = ["python310", "gcc", "playwright-driver.browsers.chromium"]
+
+[phases.install]
+cmds = ["pip install -r requirements.txt", "playwright install chromium", "playwright install-deps"]
+
+[start]
+cmd = "python monitor.py"
