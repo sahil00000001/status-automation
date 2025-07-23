@@ -261,7 +261,7 @@ def create_email_body():
                     </div>
                     
                     <div class="notice">
-                        <p><strong>🔔 Important:</strong> This is an authorized automated monitoring email. Please add this sender to your safe senders list to ensure future reports reach your inbox.</p>
+                        <p><strong>🔔 Important:</strong> This is an authorized automated monitoring email.</p>
                     </div>
                     
                     <p style="text-align: center; margin-top: 30px;">
@@ -324,7 +324,6 @@ Capture Details:
 - Status: Successfully captured
 
 IMPORTANT: This is an authorized automated monitoring email from the IT monitoring system. 
-Please add this sender to your safe senders list to ensure future reports reach your inbox.
 
 Please find the full-page screenshot attached to this email for your review.
 
