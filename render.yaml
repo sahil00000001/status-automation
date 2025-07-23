@@ -1,0 +1,9 @@
+services:
+  - type: worker
+    name: yondrone-status-monitor
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: TZ
+        value: Asia/Kolkata
+    autoDeploy: true
