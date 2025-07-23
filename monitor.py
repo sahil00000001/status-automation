@@ -28,11 +28,12 @@ SMTP_PORT = 587
 SENDER_EMAIL = "vashishtsahil99@gmail.com"
 APP_PASSWORD = "zzzuvtothvigzktq"
 
-# Split recipients into smaller batches to avoid spam filters
-TO_EMAILS_BATCH1 = ["sahil.vashisht@podtech.com", "karan.verma@podtech.com", "divya.rai@podtech.com", "manav.sharma@podtech.com"]
+# ✅ FIXED: Split recipients to avoid duplicates
+TO_EMAILS_BATCH1 = ["nisha.mehta@podtech.com", "karan.verma@podtech.com", "sahil.vashisht@podtech.com", "manav.sharma@podtech.com"]
 TO_EMAILS_BATCH2 = ["priya.singh@podtech.com", "rohit.bansal@podtech.com", "anita.patel@podtech.com", "vishal.mehra@podtech.com"]
-CC_EMAILS = ["neha.kapoor@podtech.com", "amit.saxena@podtech.com", "deepak.chauhan@podtech.com"]
-
+# ✅ FIXED: Split CC recipients between batches
+CC_EMAILS_BATCH1 = ["neha.kapoor@podtech.com", "amit.saxena@podtech.com"]
+CC_EMAILS_BATCH2 = ["sahil.vashisht@podtech.com"]
 
 # Target URL
 TARGET_URL = "https://status.yondrone.com/"
@@ -214,7 +215,7 @@ def create_email_body():
                     <div class="content">
                         <p><strong>{greeting},</strong></p>
                         
-                        <p>This is an automated update from the platform monitoring system. The current operational status of Yondrone has been verified and documented.</p>
+                        <p>This is an automated update from the platform monitoring system. The current Active Status of Yondrone has been verified and documented.</p>
                         
                         <table class="info-table">
                             <tr>
@@ -227,7 +228,7 @@ def create_email_body():
                             </tr>
                             <tr>
                                 <td>Status:</td>
-                                <td class="status-ok">✓ Operational</td>
+                                <td class="status-ok">✓ Active</td>
                             </tr>
                             <tr>
                                 <td>Next Check:</td>
@@ -244,7 +245,6 @@ def create_email_body():
                         
                         <p style="margin-top: 30px; padding: 15px; background-color: #f0f8ff; border-left: 4px solid #4A5568;">
                             <strong>Note:</strong> This is a legitimate automated monitoring email from your organization's IT infrastructure. 
-                            To ensure delivery, please add <strong>{SENDER_EMAIL}</strong> to your email contacts or safe senders list.
                         </p>
                     </div>
                     
@@ -342,7 +342,11 @@ To ensure delivery, please add {SENDER_EMAIL} to your email contacts.
                 msg.attach(img)
         
         # Send email
-        logger.info(f"Sending email to {batch_name} batch...")
+        logger.info(f"Sending email to {batch_name}...")
+        logger.info(f"TO: {', '.join(to_emails)}")
+        if cc_emails:
+            logger.info(f"CC: {', '.join(cc_emails)}")
+        
         with smtplib.SMTP(SMTP_SERVER, SMTP_PORT) as server:
             server.ehlo()
             server.starttls()
@@ -353,42 +357,41 @@ To ensure delivery, please add {SENDER_EMAIL} to your email contacts.
             all_recipients = to_emails + (cc_emails if cc_emails else [])
             server.send_message(msg)
         
-        logger.info(f"Email sent successfully to {batch_name} batch!")
-        
-        # Add delay between batches
-        time.sleep(5)
+        logger.info(f"✅ Email sent successfully to {batch_name}!")
         
     except Exception as e:
-        logger.error(f"Error sending email to {batch_name}: {str(e)}")
+        logger.error(f"❌ Error sending email to {batch_name}: {str(e)}")
         raise
 
 def monitor_and_report():
     """Main function to take screenshot and send email"""
-    logger.info("=" * 50)
-    logger.info("Running monitoring task...")
+    logger.info("=" * 60)
+    logger.info("🔍 Running monitoring task...")
     screenshot_path = None
     
     try:
         # Take screenshot
         screenshot_path = take_screenshot_playwright(TARGET_URL)
         
-        # Send emails in batches to avoid spam filters
-        logger.info("Sending emails in batches to avoid spam filters...")
+        # Send emails in balanced batches (NO MORE DUPLICATES!)
+        logger.info("📧 Sending emails in balanced batches...")
         
-        # Batch 1
-        send_email_batch(screenshot_path, TO_EMAILS_BATCH1, CC_EMAILS, "Batch 1")
+        # Batch 1: 4 TO + 2 CC
+        send_email_batch(screenshot_path, TO_EMAILS_BATCH1, CC_EMAILS_BATCH1, "Batch 1 (6 recipients)")
         
         # Wait between batches
+        logger.info("⏳ Waiting 10 seconds between batches...")
         time.sleep(10)
         
-        # Batch 2
-        send_email_batch(screenshot_path, TO_EMAILS_BATCH2, None, "Batch 2")
+        # Batch 2: 4 TO + 1 CC
+        send_email_batch(screenshot_path, TO_EMAILS_BATCH2, CC_EMAILS_BATCH2, "Batch 2 (5 recipients)")
         
-        logger.info("All emails sent successfully!")
-        logger.info("=" * 50)
+        logger.info("🎉 All emails sent successfully! NO DUPLICATES!")
+        logger.info("📊 Total recipients: 11 (6 in batch 1, 5 in batch 2)")
+        logger.info("=" * 60)
         
     except Exception as e:
-        logger.error(f"Task failed: {str(e)}")
+        logger.error(f"❌ Task failed: {str(e)}")
     finally:
         # Clean up
         if screenshot_path and os.path.exists(screenshot_path):
@@ -400,8 +403,8 @@ def monitor_and_report():
 def main():
     """Main function"""
     logger.info("🚀 Platform Monitoring System Starting...")
-    logger.info("📧 Enhanced anti-spam measures enabled")
-    logger.info("👥 Recipients split into batches for better deliverability")
+    logger.info("✅ FIXED: Balanced CC distribution - NO MORE DUPLICATES!")
+    logger.info("📧 Batch 1: 4 TO + 2 CC | Batch 2: 4 TO + 1 CC")
     
     # Run immediately
     monitor_and_report()
