@@ -29,11 +29,12 @@ SENDER_EMAIL = "vashishtsahil99@gmail.com"
 APP_PASSWORD = "zzzuvtothvigzktq"
 
 # ✅ FIXED: Split recipients to avoid duplicates
-TO_EMAILS_BATCH1 = ["nisha.mehta@podtech.com", "karan.verma@podtech.com", "sahil.vashisht@podtech.com", "manav.sharma@podtech.com"]
-TO_EMAILS_BATCH2 = ["priya.singh@podtech.com", "rohit.bansal@podtech.com", "anita.patel@podtech.com", "vishal.mehra@podtech.com"]
+TO_EMAILS_BATCH1 = ["ajeet@podtech.com", "shrishti.singh@podtech.com", "ashish.singh@podtech.com", "sahil.vashisht@podtech.com"]
+TO_EMAILS_BATCH2 = ["akash.yadav@podtech.com", "sunandan.handoo@podtech.com", "ravi.jha@podtech.com", "aasif.yousuf@podtech.com"]
+
 # ✅ FIXED: Split CC recipients between batches
-CC_EMAILS_BATCH1 = ["neha.kapoor@podtech.com", "amit.saxena@podtech.com"]
-CC_EMAILS_BATCH2 = ["sahil.vashisht@podtech.com"]
+CC_EMAILS_BATCH1 = ["vipin@podtech.com", "rajeev@podtech.com"]
+CC_EMAILS_BATCH2 = ["prem@podtech.com"]
 
 # Target URL
 TARGET_URL = "https://status.yondrone.com/"
